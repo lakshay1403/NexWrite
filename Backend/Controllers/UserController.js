@@ -18,7 +18,7 @@ const register = async(req,res) => {
         }
        // hashing the user password
        const salt = await bcrypt.genSalt(10);
-       const hashedPassword = bcrypt.hash(password, salt);
+       const hashedPassword = await bcrypt.hash(password, salt);
 
         //creating the user
         const newUser = new User({
