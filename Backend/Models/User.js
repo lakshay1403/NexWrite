@@ -14,11 +14,15 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    trailActive: {
+    trialPeriod: {
+        type: Number,
+        default: 3,      //3 days
+    },
+    trialActive: {
         type: Boolean,
         default: true,
     },
-    trailExpires: {
+    trialExpires: {
         type: Date,
     },
     subscription:{
