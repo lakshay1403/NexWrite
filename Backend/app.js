@@ -1,6 +1,7 @@
 const express = require('express');
 const userRouter = require('./route/UserRouter');
 const connectDB = require('./utils/connectDB');
+const errorHandler = require('./middlewares/errorMiddleware');
 const app = express();
 
 require('dotenv').config();
@@ -13,8 +14,10 @@ const PORT = process.env.PORT || 3000
 //Middlewares
 app.use(express.json());   //pass incoming json data
 
-
 app.use('/api/v1/users', userRouter);
+
+//--Error handling middleware---
+app.use(errorHandler);
 
 
 //Starting the server

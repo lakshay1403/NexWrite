@@ -1,9 +1,9 @@
 const User = require('../Models/User');
 const bcrypt = require('bcryptjs');
+const asyncHandler = require('express-async-handler');
 
 //----Registration-----
-const register = async(req,res) => {
-    try {
+const register = asyncHandler(async( req, res ) => {
         const {username, email, password} = req.body;
         if(!username || !email || !password){
             res.status(400)
@@ -38,10 +38,37 @@ const register = async(req,res) => {
             username,email
         }
     });
-    } catch (error) {
-        throw new Error(error);
+});
+
+//----Login---
+const login = asyncHandler(async( req, res) => {
+    const {email, password} = req.body;
+    const user = await User.findOne({email});
+    if(!user){
+        res.status(401)
+        throw new Error('Invalid email or password');
     }
+
+    const isMatched = await bcrypt.compare(password, user?.password);
+    if(!isMatched){
+        res.status(401);
+        throw new Error('Invalid email or password');
+    }
+    //Generating the token (jwt)
+    //set the token into cookie (http only)
+
+    //sending the response
+    res.json({
+        status: "success",
+        _id: user?._id,
+        message: "Login success",
+        username: user?.username,
+        email: user?.email,
+    });
+});
+
+
+module.exports = {
+    register,
+    login,
 };
-
-
-module.exports = register;
