@@ -1,11 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const userRouter = require('./route/UserRouter');
 const connectDB = require('./utils/connectDB');
 const errorHandler = require('./middlewares/errorMiddleware');
 const app = express();
 const cookieParser = require('cookie-parser');
+const GeminiRouter = require('./route/GeminiAiRouter');
 
-require('dotenv').config();
+
 
 connectDB();
 
@@ -17,6 +20,7 @@ app.use(express.json());   //pass incoming json data
 app.use(cookieParser());     // pass the cookie automatically
 
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/gemini', GeminiRouter);
 
 //--Error handling middleware---
 app.use(errorHandler);
