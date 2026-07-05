@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
     },
     monthlyRequestCount: {
         type: Number,
-        default: 0,
+        default: 100,
     },
     nextBillingDate: Date,
     payments: [
@@ -52,8 +52,16 @@ const UserSchema = new mongoose.Schema({
     ]
 },{
     timestamps: true,
+    toJSON:{ virtuals : true},
+    toObject: { virtuals : true},
  }
 );
+
+//Adding a virtual property
+UserSchema.virtual('isTrialActive').get(function(){
+    return this.trialActive && new Date() < this.trialExpires;
+});
+
 
 const User = mongoose.model('User', UserSchema);
 
