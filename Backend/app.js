@@ -7,6 +7,7 @@ const errorHandler = require('./middlewares/errorMiddleware');
 const app = express();
 const cookieParser = require('cookie-parser');
 const GeminiRouter = require('./route/GeminiAiRouter');
+const stripeRouter = require('./route/stripeRouter');
 
 
 
@@ -19,8 +20,10 @@ const PORT = process.env.PORT || 3000
 app.use(express.json());   //pass incoming json data
 app.use(cookieParser());     // pass the cookie automatically
 
+//Routes
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/gemini', GeminiRouter);
+app.use('/api/v1/stripe', stripeRouter);
 
 //--Error handling middleware---
 app.use(errorHandler);

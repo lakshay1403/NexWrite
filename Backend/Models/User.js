@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
     trialExpires: {
         type: Date,
     },
-    subscription:{
+    subscriptionPlan:{
         type: String,
         enum:['Trial','Free','Basic','Premium']
     },
