@@ -26,6 +26,9 @@ const PaymentSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
+    monthlyRequestCount: {
+        type: Number,
+    },
 },{
     timestamps: true,
 });
