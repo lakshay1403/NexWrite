@@ -84,7 +84,7 @@ const logout = asyncHandler(async(req,res) => {
 
 //---User profile----
 const userProfile = asyncHandler(async(req,res) => {
-    const user = await User.findById(req?.user?.id).select('-password');
+    const user = await User.findById(req?.user?.id).select('-password').populate('payments').populate('History');
     if(user){
         res.status(200).json({
             status: "success",

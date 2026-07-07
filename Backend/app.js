@@ -8,13 +8,74 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const GeminiRouter = require('./route/GeminiAiRouter');
 const stripeRouter = require('./route/stripeRouter');
+const cron = require('node-cron');
+const User = require('./Models/User');
 
 
 
 connectDB();
-
 const PORT = process.env.PORT || 3000
 
+
+//Cron for the trial period: run every single day
+cron.schedule('0 0 * * * *', async()=>{
+    const today = new Date()
+    try {
+        const updatedUser = User.updateMany({
+            trialActive: true,
+            trialExpires: {$lt: today}
+        },{
+            trialActive: false,
+            subscriptionPlan: 'Free',
+            monthlyRequestCount: 5
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+//Cron for the Free Plan: run at the end of every month
+cron.schedule('0 0 1 * * *', async()=>{
+    const today = new Date()
+    try {
+        User.updateMany({
+            subscriptionPlan: 'Free',
+            nextBillingDate: {$lt: today},
+        },{
+            monthlyRequestCount: 0,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+//Cron for the Basic Plan: run at the end of every month
+cron.schedule('0 0 1 * * *', async()=>{
+    const today = new Date()
+    try {
+        User.updateMany({
+            subscriptionPlan: 'Basic',
+            trialExpires: {$lt: today}
+        },{
+            monthlyRequestCount: 0,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+//Cron for the Premium Plan: run at the end of every month
+cron.schedule('0 0 1 * * *', async()=>{
+    const today = new Date()
+    try {
+        User.updateMany({
+            subscriptionPlan: 'Premium',
+            nextBillingDate: {$lt: today}
+        },{
+            monthlyRequestCount: 0,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+//Cron paid plan
 
 //Middlewares
 app.use(express.json());   //pass incoming json data

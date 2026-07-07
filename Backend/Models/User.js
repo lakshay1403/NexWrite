@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
     payments: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "payment",
+            ref: "Payment",
         }
     ],
     History: [
