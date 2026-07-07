@@ -94,10 +94,26 @@ const userProfile = asyncHandler(async(req,res) => {
         res.status(404);
         throw new Error("user not found");
     }
-})
+});
+
+
+//---checking user Auth status----
+const checkAuth = asyncHandler(async(req,res )=> {
+    const decoded = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
+    if(decoded){
+        res.json({
+            isAuthenticated: true,
+        })
+    }else{
+        res.json({
+            isAuthenticated: false,
+        })
+    }
+});
 module.exports = {
     register,
     login,
     logout,
     userProfile,
+    checkAuth,
 };
