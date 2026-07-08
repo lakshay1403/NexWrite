@@ -10,6 +10,7 @@ const GeminiRouter = require('./route/GeminiAiRouter');
 const stripeRouter = require('./route/stripeRouter');
 const cron = require('node-cron');
 const User = require('./Models/User');
+const cors = require('cors');
 
 
 
@@ -80,6 +81,12 @@ cron.schedule('0 0 1 * * *', async()=>{
 //Middlewares
 app.use(express.json());   //pass incoming json data
 app.use(cookieParser());     // pass the cookie automatically
+const corsOption = {
+    origin: "http://localhost:3000",
+    credentials: true,
+};
+
+app.use(cors(corsOption));
 
 //Routes
 app.use('/api/v1/users', userRouter);
@@ -94,5 +101,3 @@ app.use(errorHandler);
 app.listen(PORT,()=>{
     console.log(`Server is up and running on PORT ${PORT}`)
 });
-
-console.log("this is executed");
