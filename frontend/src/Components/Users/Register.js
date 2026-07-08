@@ -3,9 +3,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { registerAPI } from "../../apis/user/usersAPI";
-import StatusMessage from "../Alert/StatusMessage";
-import { useAuth } from "../../AuthContext/AuthContext";
+// import { useAuth } from "../../AuthContext/AuthContext";
+import { RegisterApi } from "../../apis/Users/UsersApi";
+import StatusMessage from "../Alert/statusMessage";
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -18,16 +18,18 @@ const validationSchema = Yup.object({
 
 const Registration = () => {
   //custom auth hook
-  const { isAuthenticated, login } = useAuth();
+//   const { isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
   //Redirect if a user is login
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
-    }
-  }, [isAuthenticated]);
+//   useEffect(() => {
+//     if (isAuthenticated) {
+//       navigate("/dashboard");
+//     }
+//   }, [isAuthenticated]); 
   //mutation
-  const mutation = useMutation({ mutationFn: registerAPI });
+  const mutation = useMutation({
+    mutationFn: RegisterApi,
+  })
   // Formik setup for form handling
   const formik = useFormik({
     initialValues: {
@@ -37,9 +39,8 @@ const Registration = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // Here, handle the form submission
       console.log("Form values", values);
-      mutation.mutate(values); // Redirect user to login page
+      mutation.mutate(values); 
 
       setTimeout(() => {
         navigate("/login");
