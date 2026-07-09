@@ -6,6 +6,9 @@ import PublicNavbar from './Components/NavBar/PublicNavBar';
 import Home from './Components/Home/Home';
 import { useAuth } from './AuthContext/AuthContext';
 import PrivateNavbar from './Components/NavBar/PrivateNavBar';
+import AuthRoute from './Components/AuthRoute/AuthRoute';
+
+
 export default function App(){
   const { isAuthenticated } = useAuth();
   return (
@@ -15,7 +18,9 @@ export default function App(){
     <Routes>
       <Route path='/register' element={<Registration/>}/>
       <Route path='/login' element={<Login/>}/>
-      <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route path='/dashboard' element={
+        <AuthRoute><Dashboard/></AuthRoute>
+      }/>
       <Route path='/' element={<Home/>} />
     </Routes>
     </BrowserRouter>
