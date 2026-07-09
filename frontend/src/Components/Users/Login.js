@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {useMutation} from '@tanstack/react-query';
 import { LoginApi } from "../../apis/Users/UsersApi";
 import StatusMessage from "../Alert/statusMessage";
+import { useAuth } from "../../AuthContext/AuthContext";
 
 // Validation schema using Yup
 const validationSchema = Yup.object({
@@ -15,6 +16,7 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
+  const {isAuthenticated} = useAuth();
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: LoginApi,

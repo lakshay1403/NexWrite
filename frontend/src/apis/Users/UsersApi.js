@@ -23,3 +23,11 @@ export const LoginApi = async(userData) => {
     });
     return response.data;
 }
+
+//----Authenticating the user----
+export const checkUserAuthStatusAPI = async() => {
+    const response = await axios.get('http://localhost:8000/api/v1/users/auth/check',{
+        withCredentials: true,
+    });
+    return response?.data;
+}
