@@ -44,14 +44,14 @@ const Registration = () => {
 
       setTimeout(() => {
         navigate("/login");
-      }, 5000);
+      }, 2000);
     },
   });
-  console.log(mutation.isSuccess);
-  console.log(mutation.isPending);
-  console.log(mutation.isError);
-  console.log(mutation.error);
-  console.log(mutation);
+  // console.log(mutation.isSuccess);
+  // console.log(mutation.isPending);
+  // console.log(mutation.isError);
+  // console.log(mutation.error);
+  // console.log(mutation);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8 m-4">

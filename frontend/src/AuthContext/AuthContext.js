@@ -9,8 +9,10 @@ export const AuthProvider = ({children}) => {
     const {isError, isLoading, data, isSuccess} = useQuery({queryFn: checkUserAuthStatusAPI, queryKey:['checkAuth']});
     //update the authenticated user
     useEffect(()=>{
-        setIsAuthenticated(true);
-    },[data]);
+        if(isSuccess){
+            setIsAuthenticated(data);
+        }
+    },[isSuccess,data]);
 
 
     //updating the user auth after login

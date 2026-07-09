@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
-  const {isAuthenticated} = useAuth();
+  const {isAuthenticated, login} = useAuth();
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: LoginApi,
@@ -29,14 +29,18 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // Here, you would typically handle form submission
-      console.log(values);
       mutation.mutate(values);
-      // Simulate login success and navigate to dashboard
-      //navigate("/dashboard");
+      setTimeout(() => {
+        navigate('/dashboard')
+      },2000);
     },
   });
-
+//updating the isAuthenticated
+useEffect(() => {
+  if(mutation.isSuccess){
+    login();
+  }
+},[mutation.isSuccess])
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8 m-4">

@@ -26,8 +26,18 @@ export const LoginApi = async(userData) => {
 
 //----Authenticating the user----
 export const checkUserAuthStatusAPI = async() => {
-    const response = await axios.get('http://localhost:8000/api/v1/users/auth/check',{
+    const response = await axios.get('http://localhost:8000/api/v1/users/auth/check',
+        {
         withCredentials: true,
     });
     return response?.data;
-}
+};
+
+//--Logging out the user---
+export const LogoutAPI = async() => {
+    const response = await axios.post('http://localhost:8000/api/v1/users/logout',{},
+        {
+        withCredentials: true,
+    });
+    return response?.data
+};
