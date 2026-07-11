@@ -44,10 +44,10 @@ const UserSchema = new mongoose.Schema({
             ref: "Payment",
         }
     ],
-    History: [
+    contentHistory: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "history",
+            ref: "ContentHistory",
         }
     ]
 },{
