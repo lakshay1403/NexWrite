@@ -27,7 +27,8 @@ const UserSchema = new mongoose.Schema({
     },
     subscriptionPlan:{
         type: String,
-        enum:['Trial','Free','Basic','Premium']
+        enum:['Trial','Free','Basic','Premium'],
+        default: "Trial",
     },
     apiRequestCount:{
         type: Number,
@@ -44,7 +45,7 @@ const UserSchema = new mongoose.Schema({
             ref: "Payment",
         }
     ],
-    contentHistory: [
+    ContentHistory: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "ContentHistory",

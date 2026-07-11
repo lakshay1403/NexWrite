@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const historySchema = new mongoose.Schema({
+const HistorySchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -21,6 +21,6 @@ const historySchema = new mongoose.Schema({
     timestamps: true,
 });
 
-const history = mongoose.model('history', historySchema);
+const ContentHistory = mongoose.model('ContentHistory', HistorySchema);
 
-module.exports = history;
+module.exports = ContentHistory;
