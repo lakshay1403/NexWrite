@@ -38,7 +38,7 @@ const generateContent = asyncHandler(async(req,res)=> {
 
     await User.findByIdAndUpdate(user._id, {
         $push: {
-            History: history._id,
+            ContentHistory: history._id,
         },
         $inc: {
             apiRequestCount: 1,
