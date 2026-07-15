@@ -7,6 +7,7 @@ import Home from './Components/Home/Home';
 import { useAuth } from './AuthContext/AuthContext';
 import PrivateNavbar from './Components/NavBar/PrivateNavBar';
 import AuthRoute from './Components/AuthRoute/AuthRoute';
+import BlogPostAIAssistant from './Components/ContentGeneration/GenerateContent';
 
 
 export default function App(){
@@ -22,6 +23,9 @@ export default function App(){
         <AuthRoute><Dashboard/></AuthRoute>
       }/>
       <Route path='/' element={<Home/>} />
+      <Route path='/generate-content' element = {<AuthRoute>
+        <BlogPostAIAssistant/>
+      </AuthRoute>} />
     </Routes>
     </BrowserRouter>
     </>
