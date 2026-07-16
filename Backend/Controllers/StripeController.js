@@ -156,6 +156,13 @@ const handleFreeSubscription = asyncHandler(async( req , res) => {
                 message: "Subscription plan updated successfully",
             });
         }
+
+        return res.status(400).json({
+            status: "error",
+            message: "Subscription plan cannot be renewed yet",
+        });
+
+
     } catch (error) {
         console.error(error);
 
