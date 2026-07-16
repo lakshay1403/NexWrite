@@ -8,6 +8,9 @@ import { useAuth } from './AuthContext/AuthContext';
 import PrivateNavbar from './Components/NavBar/PrivateNavBar';
 import AuthRoute from './Components/AuthRoute/AuthRoute';
 import BlogPostAIAssistant from './Components/ContentGeneration/GenerateContent';
+import Plans from './Components/Plan/Plan';
+import FreePlanSignup from './Components/StripePayment/FreePlansignUp';
+import AboutUs from './Components/About/About';
 
 
 export default function App(){
@@ -26,8 +29,11 @@ export default function App(){
       <Route path='/generate-content' element = {<AuthRoute>
         <BlogPostAIAssistant/>
       </AuthRoute>} />
+      <Route path='/plans' element={<Plans/>} />
+      <Route path='/free-plan' element={<FreePlanSignup/>} />
+      <Route path='/about' element={<AboutUs/>} />
     </Routes>
-    </BrowserRouter>
+    </BrowserRouter> 
     </>
   )
 }
